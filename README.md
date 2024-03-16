@@ -1,38 +1,12 @@
-# create-svelte
+# Prerendering does not work for a route with a space in the name
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+Run `npm run preview` to see the error at `http://localhost:4173/hello world`
 
-## Creating a project
+`/hello world` is the example route. You can see `./sveltekit/output/pages/hello world.html` in the prerendering files, but the router does not seem to decode the URL properly and is literally searching with the %20 (check vite server logs)
 
-If you're seeing this, you've probably already done this step. Congrats!
-
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+You can completely recreate the error
+1. create a route with a space in the name
+2. In the relevant .js file mark the file prerenderable.
+3. Check dev server to see it works.
+4. Run `npm run build` and `npm run preview`
+5. Revisit the route
